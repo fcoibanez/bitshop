@@ -28,36 +28,30 @@ class CoinbaseExchangeAuth(AuthBase):
         })
         return request
 
+if __name__ == '__main__':
+    # Read the API Keys
+    api_keys = {}
+    with open(wd + '/keys.csv', newline='', encoding='ASCII') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            api_keys[row[0]] = row[1]
 
-# Read the API Keys
-reader = csv.reader(open(wd + '/keys.csv', encoding='ASCII'))
-api_keys = {}
-for row in reader:
-    key = row[0]
-    api_keys[key] = row[1]
+    auth = CoinbaseExchangeAuth(
+        api_key=api_keys['public'],
+        secret_key=api_keys['secret'],
+        passphrase=api_keys['pass']
+    )
 
-api_keys = {}
-with open(wd + '/keys.csv', newline='', encoding='ASCII') as f:
-    reader = csv.reader(f)
-    for row in reader:
-        api_keys[row[0]] = row[1]
+    # Get accounts
+    r = requests.get('https://api.pro.coinbase.com/accounts', auth=auth)
+    print(r.json())
 
-auth = CoinbaseExchangeAuth(
-    api_key=api_keys['public'],
-    secret_key=api_keys['secret'],
-    passphrase=api_keys['pass']
-)
-
-# Get accounts
-r = requests.get('https://api.pro.coinbase.com/accounts', auth=auth)
-print(r.json())
-
-# Place an order
-order = {
-    'size': 1.0,
-    'price': 1.0,
-    'side': 'buy',
-    'product_id': 'BTC-USD',
-}
-r = requests.post('https://api.pro.coinbase.com/orders', json=order, auth=auth)
-print(r.json())
+    # Place an order
+    order = {
+        'size': 1.0,
+        'price': 1.0,
+        'side': 'buy',
+        'product_id': 'BTC-USD',
+    }
+    r = requests.post('https://api.pro.coinbase.com/orders', json=order, auth=auth)
+    print(r.json())
