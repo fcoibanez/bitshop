@@ -1,4 +1,4 @@
-import snippets.basic_operations as bo
+from bitshop.data import rest
 import requests
 import math
 from random import uniform
@@ -19,7 +19,7 @@ class DataFetch:
     """
     def __init__(self, api_keys):
         self.keys = api_keys
-        self.auth = bo.CoinbaseExchangeAuth(
+        self.auth = rest.CoinbaseExchangeAuth(
             api_key=self.keys['public'],
             secret_key=self.keys['secret'],
             passphrase=self.keys['pass']
