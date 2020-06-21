@@ -1,4 +1,4 @@
-from bitshop.data import rest
+from bitshop.pipeline import rest
 import requests
 import math
 from random import uniform
@@ -12,7 +12,7 @@ from tqdm import tqdm
 # DataFetch class
 class DataFetch:
     """
-    Object that handles the communication with the API to fetch historical and current data.
+    Object that handles the communication with the API to fetch historical and current pipeline.
 
     :param api_keys: Dictionary containing the public key ('public'), private key ('private'), and
     the API password ('pass').
@@ -31,7 +31,7 @@ class DataFetch:
 
     def build_meta(self):
         """
-        Creates table containing meta data about every currency pair (traded and referential) available on the API.
+        Creates table containing meta pipeline about every currency pair (traded and referential) available on the API.
         The information includes specifics about tradablility and quote details.
 
         :return: Pandas DataFrame.
@@ -55,7 +55,7 @@ class DataFetch:
         :param end_dt: datetime object.
         :param frequency: In seconds. Possible values are 60 (1min), 300 (5min), 900 (15min), 3600 (1hr),
         21600 (6hrs), 86400 (1day).
-        :return: Pandas DataFrame containing the candle data.
+        :return: Pandas DataFrame containing the candle pipeline.
         """
         params = {
             'start': start_dt.isoformat(),

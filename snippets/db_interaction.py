@@ -1,5 +1,5 @@
 import bitshop
-from bitshop.data import rest
+from bitshop.pipeline import rest
 from datetime import datetime
 import os
 import csv
